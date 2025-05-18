@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Micckie Minnie @1905💜</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet" />
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" crossorigin="" />
+  <style>
+    /* CSS RESET */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at center, #fccde0, #e45488 70%);
+      color: #4b2e83;
+      overflow: hidden;
+      position: relative;
+      user-select:none;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Background floating hearts */
+    #heartsBackground {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: visible;
+    }
+    .floating-heart {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      fill: #ff557f;
+      filter: drop-shadow(0 0 6px #cc2c50);
+      animation: floatUp 12s linear infinite;
+      will-change: transform, opacity;
+      user-select: none;
+      pointer-events: none;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(1); opacity: 0.85;}
+      100% { transform: translateY(-150px) scale(0.5); opacity: 0;}
+    }
+
+    #kissAnimationContainer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 10000;
+      display: none;
+      overflow: visible;
+      user-select:none;
+    }
+    .kiss {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: #e91e63;
+      clip-path: polygon(
+        50% 0%, 65% 18%, 82% 18%, 92% 30%, 92% 45%, 82% 60%, 65% 75%, 50% 100%,
+        35% 75%, 18% 60%, 8% 45%, 8% 30%, 18% 18%, 35% 18%
+      );
+      opacity: 0.8;
+      animation: kissMove 2.5s ease forwards;
+      will-change: transform, opacity;
+      filter: drop-shadow(0 0 6px #c80048);
+      pointer-events: none;
+      user-select:none;
+    }
+    @keyframes kissMove {
+      0% {
+        transform: translateY(0) scale(1) rotate(0deg);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translateY(-80px) scale(1.2) rotate(20deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-160px) scale(0.3) rotate(35deg);
+        opacity: 0;
+      }
+    }
+
+    #app {
+      max-width: 360px;
+      margin: 0 auto;
+      height: 100vh;
+      background: white;
+      border-radius: 25px;
+      box-shadow: 0 8px 18px rgba(107,36,130,0.3);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      z-index: 10;
+      transition: filter 0.5s ease, opacity 0.5s ease;
+    }
+    #app.hidden {
+      filter: blur(6px);
+      opacity: 0.3;
+      pointer-events: none;
+      user-select:none;
+      user-drag:none;
+      height: 0;
+      overflow: hidden;
+    }
+    header {
+
+
+       background: linear-gradient(90deg, #9f4be7, #d93fbe);
+       
+
+
+      padding: 18px 20px;
+      color: #fff;
+      text-align: center;
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.8rem;
+      box-shadow: 0 2px 8px #5f2690cc;
+      user-select:none;
+    }
+    header small {
+      display: block;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #d1b3ff;
+      margin-top: 4px;
+      user-select:none;
+    }
+    main {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 12px 15px 20px 15px;
+      scroll-behavior: smooth;
+      user-select:none;
+    }
+    section {
+      margin-bottom: 24px;
+    }
+    h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3rem;
+      color: #6a1b9a;
+      margin-bottom: 12px;
+      text-align: center;
+      margin-top: 12px;
+      user-select:none;
+    }
+    .intro-text {
+      font-size: 1.15rem;
+      color: #7b458c;
+      text-align: center;
+      line-height: 1.5;
+      padding: 0 15px;
+      user-select:none;
+    }
+   @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+#loveLines {
+  font-style: normal; /* remove italic if you want */
+  font-size: 2.2rem;  /* bigger size */
+  color: #9c27b0;
+  margin: 20px auto;
+  text-align: center;
+  border-right: 3px solid #9c27b0;
+  white-space: normal;
+  overflow-wrap: break-word;
+  display: inline-block;
+  user-select: none;
+  min-height: 80px; /* increased for bigger text multiline */
+  max-width: 320px;
+  font-family: 'Patrick Hand', cursive; /* best handwriting font */
+}
+
+#loveLines.blinking {
+  animation: blink 0.75s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: #9c27b0; }
+}
+
+@media (max-width: 600px) {
+  #loveLines {
+    font-size: 1.8rem;
+    max-width: 90vw;
+  }
+}
+
+
+
+    .gallery {
+      display: flex;
+      overflow-x: auto;
+      gap: 12px;
+      padding-bottom: 5px;
+    }
+    .gallery img {
+      width: 110px;
+      height: 80px;
+      border-radius: 15px;
+      object-fit: cover;
+      box-shadow: 0 4px 10px rgba(155, 52, 112, 0.3);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      user-select:none;
+    }
+    .gallery img:hover,
+    .gallery img:focus {
+      transform: scale(1.1);
+      box-shadow: 0 6px 15px rgba(155, 52, 112, 0.6);
+      outline: none;
+    }
+    .video-wrapper {
+      width: 100%;
+      border-radius: 18px;
+      box-shadow: 0 5px 20px rgba(129, 38, 144, 0.3);
+      overflow: hidden;
+    }
+    video {
+      width: 100%;
+      max-height: 210px;
+      border-radius: 18px;
+      display: block;
+      user-select: none;
+    }
+    .apology {
+      background: #f9e5fc;
+      border-radius: 22px;
+      box-shadow: 0 3px 12px #b875d3aa;
+      padding: 15px 18px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      color: #5c2172;
+      max-width: 320px;
+      margin: 20px auto 0 auto;
+      text-align: center;
+      user-select:none;
+    }
+    .apology strong {
+      display: block;
+      margin-top: 10px;
+      font-size: 1.3rem;
+      color: #8100c4;
+    }
+    .future {
+      background: #ffe3f7;
+      border-radius: 20px;
+      box-shadow: 0 4px 16px #d47ac2aa;
+      padding: 20px 22px;
+      max-width: 320px;
+      margin: 0 auto 20px auto;
+      color: #7f2e82;
+      font-weight: 600;
+      line-height: 1.5;
+      font-size: 1.1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeSlideUp 1s ease forwards;
+      animation-delay: 0.6s;
+      user-select:none;
+    }
+    .future strong {
+      display: block;
+      margin-top: 14px;
+      font-size: 1.3rem;
+      color: #9c27b0;
+    }
+    @keyframes fadeSlideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    #toggleHearts {
+      display: block;
+      margin: 28px auto 10px auto;
+      background: linear-gradient(90deg, #aa07f7, #5b0080);
+      border: none;
+      border-radius: 35px;
+      color: white;
+      padding: 10px 25px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      box-shadow: 0 10px 23px #d6a5ff80;
+      cursor: pointer;
+      transition: background 0.4s ease;
+      user-select:none;
+    }
+    #toggleHearts:hover,
+    #toggleHearts:focus {
+      background: linear-gradient(90deg, #9c00e7, #46005a);
+      outline: none;
+    }
+    #envelopeSection {
+      max-width: 320px;
+      margin: 30px auto 40px auto;
+      text-align: center;
+      
+      position: relative;
+      z-index: 20;
+      user-select:none;
+    }
+    #envelopeSection h2 {
+      font-family: 'Great Vibes';
+      font-size: 3rem;
+      color: #aa30b5;
+      margin-bottom: 18px;
+    }
+    .envelope-container {
+      position: relative;
+      width: 180px;
+      height: 120px;
+      margin: 0 auto 16px auto;
+      cursor: pointer;
+      perspective: 800px;
+      user-select:none;
+    }
+    .envelope {
+      width: 180px;
+      height: 120px;
+      background: linear-gradient(135deg, #ffd7e0 0%, #f18bb5 100%);
+      border-radius: 16px 16px 8px 8px;
+      box-shadow:
+        0 6px 12px #cc4c7e99,
+        inset 0 3px 5px #fff5f9aa,
+        inset 0 -2px 7px #e074a9cc;
+      position: relative;
+      overflow: visible;
+    }
+    .flap {
+      position: absolute;
+      width: 180px;
+      height: 90px;
+      background: linear-gradient(135deg, #f55a8e 0%, #bc3a6a 100%);
+      clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+      top: 0; left: 0;
+      border-radius: 16px 16px 0 0;
+      box-shadow: 0 4px 14px #a8335bcc;
+      transition: transform 0.7s ease;
+      transform-style: preserve-3d;
+      z-index: 2;
+      transform-origin: top center;
+      backface-visibility: hidden;
+    }
+    .flap.open {
+      transform: rotateX(180deg);
+      box-shadow: 0 0 25px #d41d63;
+    }
+    .flap-heart {
+      position: absolute;
+      top: 28px; left: 50%;
+      width: 50px; height: 50px;
+      transform: translateX(-50%);
+      cursor: pointer;
+      transition: filter 0.3s ease, transform 0.2s ease;
+      will-change: filter, transform;
+      z-index: 10;
+    }
+    .flap-heart svg {
+      width: 100%;
+      height: 100%;
+      fill: #ff3366;
+      stroke: #b71c3f;
+      stroke-width: 1;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 3px #d8225c88);
+    }
+    .flap-heart:hover,
+    .flap-heart:focus {
+      filter: drop-shadow(0 0 8px #ff4d80cc);
+      transform: scale(1.1);
+      outline: none;
+    }
+    #envelopeMessage {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      font-family: 'Great Vibes', cursive;
+      font-size: 5rem;
+      font-weight: 900;
+      color: #e91e63;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 10001;
+      text-shadow: 0 4px 28px #f44a84cc;
+      transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+      user-select:none;
+      background: none;
+      filter: none;
+    }
+    #envelopeMessage.active {
+      transform: translate(-50%, -50%) scale(1);
+      pointer-events: auto;
+    }
+    #envelopeMessage svg {
+      width: 72px; height: 72px;
+      filter: drop-shadow(0 0 6px #d61f5a);
+    }
+    /* Our Moment Section */
+    #ourMoment {
+      position: relative;
+      height: 160px;
+      max-width: 320px;
+      margin: 0 auto 40px auto;
+      user-select:none;
+    }
+    #ourMoment h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2rem;
+      color: #9c27b0;
+      margin-bottom: 14px;
+    }
+    .images-wrapper {
+      position: relative;
+      width: 320px;
+      height: 140px;
+      margin: 0 auto;
+      user-select:none;
+    }
+    .img-left,
+    .img-right,
+    .img-center {
+      position: absolute;
+      top: 0;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 6px 16px rgba(155,52,112,0.7);
+      opacity: 1;
+      transition: opacity 0.8s ease;
+    }
+    .img-left {
+      left: 0;
+      animation: moveLeftToCenter 4s ease forwards;
+      z-index: 10;
+    }
+    .img-right {
+      right: 0;
+      animation: moveRightToCenter 4s ease forwards;
+      z-index: 10;
+    }
+    .img-center {
+      left: 50%;
+      top: 15px;
+      width: 140px;
+      height: 140px;
+      transform: translateX(-50%);
+      opacity: 0;
+      box-shadow: 0 8px 24px rgba(155,52,112,0.9);
+    }
+    #momentDate {
+      margin-top: 8px;
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.6rem;
+      color: #9c27b0;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      text-align: center;
+    }
+    @keyframes moveLeftToCenter {
+      0% { left: 0; opacity: 1; transform: none; }
+      70% { left: 50%; opacity: 1; transform: translateX(-50%); }
+      85% { opacity: 0; }
+      100% { left: 50%; opacity: 0; transform: translateX(-50%); }
+    }
+    @keyframes moveRightToCenter {
+      0% { right: 0; opacity: 1; transform: none; }
+      70% { right: 50%; opacity: 1; transform: translateX(50%); }
+      85% { opacity: 0; }
+      100% { right: 50%; opacity: 0; transform: translateX(50%); }
+    }
+    @keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+#ourMoment {
+  margin-bottom: 6rem;
+}
+
+.date-text {
+  font-size: 1rem;
+  font-weight: 900;
+  text-align: center;
+  margin-top: 15rem;
+  margin-bottom: 20rem; /* Add space below date */
+  color: #d81b60;
+}
+
+#importantDatesSection {
+  margin-top: 0rem; /* Creates visual separation from photo section */
+}
+
+  #ourMemories {
+  padding: 40px 20px;
+  text-align: center;
+}
+#ourMemories h2 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+  color: #b23adf;
+  margin-bottom: 30px;
+}
+.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 900px;
+  margin: auto;
+}
+.image-card {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+.image-card:hover {
+  transform: scale(1.05);
+}
+
+#messageOverlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+  cursor: pointer;
+}
+.message-box {
+  background:  #ff557f;
+  color: white;
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 80%;
+  text-align: center;
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.5rem;
+  box-shadow: 0 0 30px #ec407a;
+  z-index: 10000;
+}
+#heartsContainer {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9980;
+  pointer-events: none;
+}
+.heart {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center/contain;
+  animation: floatUp 4s linear forwards;
+  opacity: 0.8;
+}
+@keyframes floatUp {
+  0% { transform: translateY(100vh) scale(1); opacity: 1; }
+  100% { transform: translateY(-10vh) scale(1.3); opacity: 0; }
+}
+#loveCopyright {
+  text-align: center;
+  padding: 15px;
+  background-color: #fce4ec;
+  color: #d81b60;
+  font-family: 'Cursive', sans-serif;
+  font-size: 16px;
+  border-top: 2px dashed #f06292;
+}
+
+
+
+  </style>
+
+<body>
+  <div id="heartsBackground" aria-hidden="true"></div>
+  <div id="kissAnimationContainer" aria-hidden="true"></div>
+
+  <div id="app" role="main" aria-label="Love website showing story and map journey">
+    <header>
+      2 Saal Jhagde ladayi aur pyaar ke saath❤️
+      <small><b>Minnie banegi micckie ki dulhania aur micckie banenge minnie ke dulheraja😘💖</b></small>
+     
+    </header>
+    <main tabindex="0">
+      <!-- Envelope Section -->
+      <section id="envelopeSection" aria-label="Envelope with heart message animation" tabindex="0">
+        <h2>Dil ke darwazze kholiye jii</h2>
+        <div class="envelope-container" role="button" aria-label="Toggle envelope message" tabindex="0">
+          <div class="envelope" aria-hidden="true"></div>
+          <div class="flap" id="flap" aria-pressed="false" aria-label="Click to open or close envelope flap" tabindex="0">
+            <div class="flap-heart" id="flapHeart" role="button" tabindex="0" aria-label="Toggle 'I love youu' message" aria-pressed="false">
+              <svg viewBox="0 0 24 24" fill="#ff3366" stroke="#b71c3f" stroke-width="1" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true" focusable="false" >
+                <path d="M12 21s-8-7.14-8-11.897c0-2.6 2.238-4.12 4.17-3.758 1.233.233 2.327 1.51 3.83 3.175 
+                 1.504-1.665 2.6-2.952 3.83-3.175 1.93-.362 4.17 1.158 4.17 3.758C20 13.86 12 21 12 21z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="envelope-message" id="envelopeMessage" aria-live="polite" aria-hidden="true" role="alert">
+            <span>I love youu</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" >
+              <path d="M12 21s-8-7.14-8-11.897c0-2.6 2.238-4.12 4.17-3.758 1.233.233 2.327 1.51 3.83 3.175 
+                1.504-1.665 2.6-2.952 3.83-3.175 1.93-.362 4.17 1.158 4.17 3.758C20 13.86 12 21 12 21z"/>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- Welcome Section -->
+      <section aria-label="Welcome message and introduction">
+        <h2>Baby u are my zindagi my love </h2>
+        <p class="intro-text">
+          Meri jaan humne 2 saal mai agar jhagde ladayi ki hai to uske saath acche pal bhi dekhe hai.Maine bahut galtiyaan ki hai to ukse saath bahut kucch seekha hai.I promise mai vo galtiyaan repeat kabhi nahi karungi.Mai bahut pyaar karti hu aapse aur aapke bina jee nahi paungi bass aapka saath chahiye aur kucch nahi.Minnie manti hai ki usse bahut badi galti hui hai par ab har pal aapke saath rahegi kucch bhi ho jaye kaisi bhi situation ho kabhi galti nahi karegi ab kucch bhi aur rishta aur accha karegi.I loveeeeeeee youuuuu micckie mere dil meri dhadkan mere aadhe hisse.😘💖😘💖😘💖   </p>
+      </section>
+
+      <!-- Sweet Pyaari Lines -->
+<section aria-label="Love lines" id="loveLinesSection">
+  <h2>Yeh aapke liye mere saxxxysuraam</h2>
+  <div id="loveLines" aria-live="polite" aria-atomic="true"></div>
+</section>
+  
+
+      <!-- Our Special Moment Section -->
+      <section id="ourMoment" aria-label="Our special animated moment" tabindex="0">
+  <h2>Aap Mai Se Ban Gaye Hum 💞</h2>
+  <div class="images-wrapper" role="img" aria-describedby="momentDate" aria-label="Photos of you and your boyfriend moving to center and merging">
+    <img src="IMG-20250517-WA0006.jpg" alt="Photo of him" class="img-left" data-message="14th June"/>
+    <img src="IMG-20250516-WA0000.jpg" alt="Photo of me" class="img-right" />
+    <img src="IMG-20250517-WA0036.jpg" alt="Photo of us" class="img-center" />
+  </div>
+  <div id="momentDate" class="date-text" aria-live="polite">19th May 2023💖</div>
+  
+  
+</section>
+<!-- 💖 Romantic Memories Section -->
+<section id="ourMemories">
+  <h2>Our Beautiful Moments</h2>
+  <div class="image-gallery">
+    <div class="image-card" data-message=" Yeh micckie minnie phoenix ghumne gaye the date pe hyyyyy❤️❤️❤️❤️ Jab aap saath hote ho na lagta purri duniya meri complete ho gayi hai💖💖💖💖">
+      <img src="IMG-20250517-WA0034.jpg" alt="Memory 1" />
+    </div>
+    <div class="image-card" data-message="Dekhiyee micckie minnie kitne pyaare soye hai😍😍 Aapko pata jab aapke kandhe pe sir rakhti hu na aisa lagta ki isse best kucch ho hi nahi sakta💖💖Aap hi mere sab kucch hai aapke bina sab adhura hai😍😍">
+      <img src="IMG-20250517-WA0020.jpg" alt="Memory 2" />
+    </div>
+    <div class="image-card" data-message="Micckie Minnie red red mai pyaar ka colour itna hi gehra hai💘Ek dusre ko kitne sukoon se dekh rahe hai💖😍💞💖Aapki hassi khushi mere liye sab kucch hai aapko haste dekh sab bhool jaati hai aapki gadhedi😍😍❤️">
+      <img src="IMG-20250517-WA0013.jpg" alt="Memory 3" />
+    </div>
+    <div class="image-card" data-message="Kiss karti minnie aapko ek din saxx bhi karna aapke saath iss masti minnie ko 😍❤️❤️ Iss janam to kya purre 100 janam aap chahiye mujhe💞💞">
+      <img src="IMG-20250517-WA0021.jpg" alt="Memory 4" />
+    </div>
+  </div>
+</section>
+
+<!-- 💬 Message and Heart Overlay -->
+<div id="messageOverlay">
+  <div class="message-box" id="romanticMessage">❤️</div>
+  <div id="heartsContainer"></div>
+</div>
+
+<!-- 💬 Message and Heart Overlay -->
+<div id="messageOverlay">
+  <div class="message-box" id="romanticMessage">❤️</div>
+  <div id="heartsContainer"></div>
+</div>
+
+
+
+
+
+      <!-- Important Dates Section -->
+<section id="importantDatesSection" aria-label="Important love dates in heart shapes">
+  <h2 style="text-align:center;" text-top="0 rem">Important Dates in Hearts</h2>
+  <div id="datesContainer">
+    <div class="heart-date">
+      <div class="heart-shape" data-message="Ami tomake bhalobashi 😘💖" onclick="showBhalobashaMessage(this)">
+        <div class="heart-icons">
+          <span class="small-heart"></span>
+          <span class="small-heart"></span>
+          <span class="small-heart"></span>
+          <span class="small-heart"></span>
+          <span class="small-heart"></span>
+        </div>
+        <div class="date-value">May 19, 2023</div>
+      </div>
+    </div>
+    <div class="heart-date">
+      <div class="heart-shape" data-message="Je t'aime micckie 💘😍" onclick="showBhalobashaMessage(this)">
+        <div class="heart-icons">
+          <span class="small-heart"></span>
+          <span class="small-heart"></span>
+          <span class="small-heart"></span>
+          <span class="small-heart"></span>
+          <span class="small-heart"></span>
+        </div>
+        <div class="date-value">Jan 3, 2024</div>
+      </div>
+    </div>
+    <div class="heart-date">
+      <div class="heart-shape" data-message="Huu Taane prem karu chuu💞❤️" onclick="showBhalobashaMessage(this)">
+        <div class="heart-icons">
+          <span class="small-heart"></span>
+          <span class="small-heart"></span>
+          <span class="small-heart"></span>
+          <span class="small-heart"></span>
+          <span class="small-heart"></span>
+        </div>
+        <div class="date-value">June 14💞March 29 </div>
+      </div>
+    </div>
+    <div class="heart-date">
+      <div class="heart-shape" data-message="Tomake chara ami kichu na 💗💋" onclick="showBhalobashaMessage(this)">
+        <div class="heart-icons">
+          <span class="small-heart"></span>
+          <span class="small-heart"></span>
+          <span class="small-heart"></span>
+          <span class="small-heart"></span>
+          <span class="small-heart"></span>
+        </div>
+        <div class="date-value">Every second is special with you</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Overlay for message -->
+<div id="bhalobashaOverlay">
+  <div class="floating-hearts"></div>
+  <div class="love-text" id="loveMessage">Ami tomake bhalobashi</div>
+</div>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+#datesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  justify-content: center;
+  max-width: 600px;
+  margin: auto;
+}
+
+.heart-date {
+  flex: 0 1 calc(50% - 2em);
+  aspect-ratio: 1 / 1;
+}
+
+.heart-shape {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f48fb1, #ec407a);
+  border-radius: 50%;
+  box-shadow: 0 0 12px #e2528d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  flex-direction: column;
+  font-family: 'Great Vibes', cursive;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.heart-shape:hover {
+  transform: scale(1.05);
+}
+
+.date-value {
+  font-size: 1.8rem;
+  z-index: 1;
+  text-align: center;
+}
+
+.heart-icons {
+  display: flex;
+  gap: 0.25em;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.small-heart {
+  width: 18px;
+  height: 18px;
+  background: red;
+  position: relative;
+  transform: rotate(-45deg);
+  animation: beat 1.5s infinite ease-in-out;
+  animation-delay: calc(var(--i) * 0.2s);
+}
+
+.small-heart::before,
+.small-heart::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: #ff4081;
+  border-radius: 50%;
+}
+
+.small-heart::before {
+  top: 0;
+  left: 9px;
+}
+
+.small-heart::after {
+  top: 9px;
+  left: 0;
+}
+
+.heart-icons .small-heart:nth-child(1) { --i: 0; }
+.heart-icons .small-heart:nth-child(2) { --i: 1; }
+.heart-icons .small-heart:nth-child(3) { --i: 2; }
+.heart-icons .small-heart:nth-child(4) { --i: 3; }
+.heart-icons .small-heart:nth-child(5) { --i: 4; }
+
+/* Overlay */
+#bhalobashaOverlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 182, 193, 0.95);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.love-text {
+  font-size: 3rem;
+  font-family: 'Great Vibes', cursive;
+  color: #d81b60;
+  text-align: center;
+  z-index: 2;
+  animation: pulse 1.2s infinite;
+}
+
+.floating-hearts::before,
+.floating-hearts::after {
+  content: "💖 💘 💕 💓 💗 ❤️ 💝";
+  font-size: 2rem;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: floatHearts 8s linear infinite;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.floating-hearts::after {
+  top: 30%;
+  animation-delay: 3s;
+}
+
+@keyframes floatHearts {
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+@media (max-width: 600px) {
+  .heart-date {
+    flex: 0 1 100%;
+  }
+  .love-text {
+    font-size: 2rem;
+  }
+}
+</style>
+
+<script>
+function showBhalobashaMessage(element) {
+  const overlay = document.getElementById("bhalobashaOverlay");
+  const message = element.getAttribute("data-message");
+  document.getElementById("loveMessage").textContent = message;
+  overlay.style.display = "flex";
+  setTimeout(() => {
+    overlay.style.display = "none";
+  }, 5000);
+}
+</script>
+
+</style>
+<script>
+  const cards = document.querySelectorAll('.image-card');
+  const overlay = document.getElementById('messageOverlay');
+  const messageBox = document.getElementById('romanticMessage');
+  const heartsContainer = document.getElementById('heartsContainer');
+  let heartInterval;
+
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.style.left = Math.random() * 100 + 'vw';
+    heartsContainer.appendChild(heart);
+    setTimeout(() => heart.remove(), 4000);
+  }
+
+  function showMessage(message) {
+    messageBox.textContent = message;
+    overlay.style.display = 'flex';
+    heartInterval = setInterval(createHeart, 300);
+  }
+
+  function hideMessage() {
+    overlay.style.display = 'none';
+    clearInterval(heartInterval);
+    heartsContainer.innerHTML = '';
+  }
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const msg = card.getAttribute('data-message');
+      showMessage(msg);
+    });
+  });
+
+  overlay.addEventListener('click', hideMessage);
+</script>
+
+
+      <!-- Floating Hearts Button -->
+      <button id="toggleHearts" aria-pressed="false" aria-label="Toggle floating hearts animation" style="display: block; margin: 20px auto; background: linear-gradient(90deg, #aa07f7, #5b0080); color: white; border: none; border-radius: 30px; padding: 10px 20px; font-weight: 600; cursor: pointer;">Show Me Love 💖</button>
+
+      <!-- Map Section -->
+      <section id="mapSection" aria-label="Our journey map">
+        <h2 id="mapTitle">Our Journey: From Vaishnav College Collidor Indore to Micckie Minnie House</h2>
+        <div id="map" style="width: 100%; height: 240px;" role="application" aria-describedby="routeInfo"></div>
+        <p id="routeInfo" style="text-align:center; font-weight:600; color:#58227c; padding:0 15px;">
+           <strong>Vaishnav College Indore, Main Building 3rd Floor (2023)</strong> to <strong>Micckie Minnie House (2032)</strong>.
+            <h2>100 Years ka saath </h2>
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" crossorigin=""></script>
+  <script>
+    // Floating hearts background
+    const heartsBg = document.getElementById('heartsBackground');
+    function createFloatingHeart() {
+      const ns = "http://www.w3.org/2000/svg";
+      const heart = document.createElementNS(ns, 'svg');
+      heart.setAttribute('viewBox', '0 0 24 24');
+      heart.style.width = '30px';
+      heart.style.height = '30px';
+      heart.style.position = 'absolute';
+      heart.style.left = `${Math.random() * 100}vw`;
+      heart.style.top = '100vh';
+      heart.style.animationDuration = `${10 + Math.random() * 10}s`;
+      heart.style.fill = '#ff557f';
+      heart.style.filter = 'drop-shadow(0 0 5px #c93963)';
+      heart.setAttribute('class', 'floating-heart');
+      const path = document.createElementNS(ns, 'path');
+      path.setAttribute('d', 'M12 21s-8-7.14-8-11.897c0-2.6 2.238-4.12 4.17-3.758 '+
+        '1.233.233 2.327 1.51 3.83 3.175 1.504-1.665 2.6-2.952 3.83-3.175 '+
+        '1.93-.362 4.17 1.158 4.17 3.758C20 13.86 12 21 12 21z');
+      heart.appendChild(path);
+      heartsBg.appendChild(heart);
+      setTimeout(() => heart.remove(), 20000);
+    }
+    for(let i=0; i<20; i++) {
+      setTimeout(createFloatingHeart, i*800);
+    }
+    setInterval(createFloatingHeart, 4000);
+
+    // Envelope toggle and kiss animation
+    const flap = document.getElementById('flap');
+const flapHeart = document.getElementById('flapHeart');
+const envelopeMessage = document.getElementById('envelopeMessage');
+const kissContainer = document.getElementById('kissAnimationContainer');
+const appContainer = document.getElementById('app');
+
+let isOpen = false;
+let kissInterval;
+
+function createKiss() {
+  const kiss = document.createElement('div');
+  kiss.classList.add('kiss');
+  kiss.style.left = `${Math.random() * 100}vw`;
+  kiss.style.top = '100vh';
+  kiss.style.animationDelay = `${Math.random() * 2}s`;
+  kissContainer.appendChild(kiss);
+  setTimeout(() => kiss.remove(), 3000);
+}
+
+function startKisses() {
+  kissContainer.style.display = 'block';
+  kissInterval = setInterval(createKiss, 400);
+}
+
+function stopKisses() {
+  kissContainer.style.display = 'none';
+  clearInterval(kissInterval);
+  while (kissContainer.firstChild) kissContainer.removeChild(kissContainer.firstChild);
+}
+
+function showLoveMessage() {
+  const loveMsg = document.createElement('div');
+  loveMsg.id = 'loveMessage';
+  loveMsg.textContent = 'I love you micckie mere pyaarsuraam mere purrelifekehumsafarsuraam❤️💖💖💖💖💖💖Aapko dekh ke din ki shurwat hoti hai aur dekhne ke baad neendu aati hai💖💖💖💖';
+  loveMsg.style.cssText = `
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Great Vibes', cursive;
+    font-size: 5rem;
+    color: #ec407a;
+    text-shadow: 0 0 10px #f48fb1;
+    z-index: 9999;
+    animation: fadeIn 0.5s ease-out;
+    pointer-events: none;
+  `;
+  document.body.appendChild(loveMsg);
+}
+
+function removeLoveMessage() {
+  const msg = document.getElementById('loveMessage');
+  if (msg) msg.remove();
+}
+
+function closeEnvelope() {
+  isOpen = false;
+  flap.classList.remove('open');
+  flapHeart.setAttribute('aria-pressed', 'false');
+  envelopeMessage.classList.remove('active');
+  envelopeMessage.setAttribute('aria-hidden', 'true');
+  
+  // Show main page/app content again
+  appContainer.classList.remove('hidden');
+
+  // Stop kiss animation and remove kisses
+  stopKisses();
+
+  // Remove love message from DOM
+  removeLoveMessage();
+
+  // Remove outside click listener to prevent leaks
+  document.removeEventListener('click', handleOutsideClick);
+
+  // Remove any body class added for open state
+  document.body.classList.remove('kiss-open');
+}
+
+function handleOutsideClick(e) {
+  // If clicked outside flap, flapHeart, or envelopeMessage, close the envelope
+  if (e.target.closest('#flap') || e.target.closest('#flapHeart') || e.target.closest('#envelopeMessage')) return;
+  closeEnvelope();
+}
+
+function toggleEnvelope() {
+  isOpen = !isOpen;
+
+  if (isOpen) {
+    flap.classList.add('open');
+    flapHeart.setAttribute('aria-pressed', 'true');
+    envelopeMessage.classList.add('active');
+    envelopeMessage.setAttribute('aria-hidden', 'false');
+
+    // Hide main page/app content
+    appContainer.classList.add('hidden');
+
+    // Add body class to maybe style the page when open (optional)
+    document.body.classList.add('kiss-open');
+
+    // Show message and start kisses
+    showLoveMessage();
+    startKisses();
+
+    // Setup outside click to close envelope
+    setTimeout(() => {
+      document.addEventListener('click', handleOutsideClick);
+    }, 100);
+  } else {
+    closeEnvelope();
+  }
+}
+
+// Add event listeners on flap and flapHeart for toggling
+flap.addEventListener('click', toggleEnvelope);
+flapHeart.addEventListener('click', toggleEnvelope);
+
+// Optional keyboard accessibility
+flap.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    toggleEnvelope();
+  }
+});
+flapHeart.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    toggleEnvelope();
+  }
+});
+
+
+// Event listeners
+flapHeart.addEventListener('click', toggleEnvelope);
+flapHeart.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    toggleEnvelope();
+  }
+});
+
+    // Love lines typing animation
+   const lines = [
+  "Aap meri zindagi ki wo roshni ho jo kabhi bujh nahi sakti.",
+  "Har pal aapka saath jeena mere sapno ka sach hona hai.",
+  "Galtiyan maaf kar do, kyunki mera dil sirf aapke liye dhadakta hai.",
+  "Mera pyaar aapki muskan mein basaa hai.",
+  "Bas ek hi dua hai, hamesha aapka saath mile.",
+  "Jab tak saansein chalengi, tab tak aapse mohabbat karti rahungi."
+];
+
+const loveLinesEl = document.getElementById('loveLines');
+let lineIndex = 0;
+let charIndex = 0;
+const typingSpeed = 75;
+const delayBetweenLines = 2500;
+
+function typeNextChar() {
+  if (charIndex < lines[lineIndex].length) {
+    loveLinesEl.textContent += lines[lineIndex][charIndex++];
+    loveLinesEl.classList.remove('blinking');
+    setTimeout(typeNextChar, typingSpeed);
+  } else {
+    loveLinesEl.classList.add('blinking');
+    setTimeout(() => {
+      charIndex = 0;
+      loveLinesEl.classList.remove('blinking');
+      loveLinesEl.textContent = "";
+      lineIndex = (lineIndex + 1) % lines.length;
+      typeNextChar();
+    }, delayBetweenLines);
+  }
+}
+
+typeNextChar();
+
+    // Animated photos section
+    const leftImg = document.querySelector('.img-left');
+    const rightImg = document.querySelector('.img-right');
+    const centerImg = document.querySelector('.img-center');
+    const momentDate = document.getElementById('momentDate');
+    function startOurMomentAnimation() {
+      leftImg.style.animation = 'none';
+      rightImg.style.animation = 'none';
+      centerImg.style.opacity = '0';
+      momentDate.style.opacity = '0';
+      void leftImg.offsetWidth;
+      leftImg.style.animation = 'moveLeftToCenter 4s ease forwards';
+      rightImg.style.animation = 'moveRightToCenter 4s ease forwards';
+      setTimeout(() => {
+        centerImg.style.opacity = '1';
+        momentDate.style.opacity = '1';
+      }, 3400);
+      setTimeout(startOurMomentAnimation, 6000);
+    }
+    window.onload = () => {
+      startOurMomentAnimation();
+    };
+    
+
+    
+
+    // Setup Leaflet Map with animated heart marker
+    const map = L.map('map', {zoomControl:false, attributionControl:false}).setView([22.73, 75.87], 14);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18}).addTo(map);
+    const startPoint = [22.7245, 75.868];
+    const endPoint = [22.735, 75.88];
+    L.marker(startPoint).addTo(map).bindPopup('Vaishnav College Indore, Main Building 3rd Floor (2023)').openPopup();
+    L.marker(endPoint).addTo(map).bindPopup('Mickey Minnie House Kanchan Bagh (2032)');
+    const route = L.polyline([startPoint,endPoint], {color:'#9c27b0', weight:5, opacity:0.8, dashArray:'15,10', lineJoin:'round'}).addTo(map);
+    map.fitBounds(route.getBounds(), {padding:[40,40]});
+    const heartIcon = L.divIcon({
+      html: '<svg viewBox="0 0 24 24" fill="#e91e63" stroke="#ad1457" stroke-width="1" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true" role="img" width="26" height="26" xmlns="http://www.w3.org/2000/svg"><path d="M12 21s-8-7.14-8-11.897c0-2.6 2.238-4.12 4.17-3.758 1.233.233 2.327 1.51 3.83 3.175 1.504-1.665 2.6-2.952 3.83-3.175 1.93-.362 4.17 1.158 4.17 3.758C20 13.86 12 21 12 21z"/></svg>',
+      className: '',
+      iconSize: [26, 26],
+      iconAnchor: [13, 22]
+    });
+    const movingMarker = L.marker(startPoint, {icon: heartIcon}).addTo(map);
+    const latLngs = route.getLatLngs();
+    const steps = 160;
+    let animationCoords = [];
+    for (let i = 0; i <= steps; i++) {
+      let t = i / steps;
+      animationCoords.push([
+        latLngs[0].lat + (latLngs[1].lat - latLngs[0].lat) * t,
+        latLngs[0].lng + (latLngs[1].lng - latLngs[0].lng) * t,
+      ]);
+    }
+    let currentStep = 0;
+    function animateMarker() {
+      movingMarker.setLatLng(animationCoords[currentStep]);
+      currentStep = (currentStep + 1) % animationCoords.length;
+      requestAnimationFrame(animateMarker);
+    }
+    animateMarker();
+
+    // Floating hearts toggle logic
+    const toggleBtn = document.getElementById('toggleHearts');
+    let heartsInterval;
+    let heartsActive = false;
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.animationDuration = (3 + Math.random() * 3) + 's';
+      heart.style.opacity = 0.6 + Math.random() * 0.4;
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+    function startFloatingHearts() {
+      createHeart();
+      heartsInterval = setInterval(createHeart, 450);
+    }
+    function stopFloatingHearts() {
+      clearInterval(heartsInterval);
+      document.querySelectorAll('.heart').forEach(h => h.remove());
+    }
+    toggleBtn.addEventListener('click', () => {
+      if(heartsActive) {
+        stopFloatingHearts();
+        toggleBtn.textContent = 'Show Me Love 💖';
+        toggleBtn.setAttribute('aria-pressed', 'false');
+      } else {
+        startFloatingHearts();
+        toggleBtn.textContent = 'I love you meri jaan mere micckie meri zindagi💖💖💖💖💖💖💖💖💖Micckie Minnie forever love💕💕💕💕';
+        toggleBtn.setAttribute('aria-pressed', 'true');
+      }
+      heartsActive = !heartsActive;
+    });
+  </script>
+  <style>
+    .heart {
+      position: fixed;
+      width: 30px;
+      height: 30px;
+      background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center / contain;
+      opacity: 0.8;
+      animation-name: floatUpBetter;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      pointer-events: none;
+      user-select: none;
+      z-index: 9998;
+    }
+    @keyframes floatUpBetter {
+      0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 0.85;
+      }
+      100% {
+        transform: translateY(-100px) scale(0.5);
+        opacity: 0;
+      }
+    }
+  </style>
+  <footer id="loveCopyright">
+  <p>© 1905 Micckie & Minnie Love❤️</p>
+</footer>
+
+</body>
+</html>
